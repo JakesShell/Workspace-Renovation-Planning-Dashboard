@@ -1,0 +1,109 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workspace Renovation Planning Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="hero">
+        <div class="hero-inner">
+            <p class="eyebrow">Facilities Operations Dashboard</p>
+            <h1>Workspace Renovation Planning Dashboard</h1>
+            <p class="hero-text">
+                Browser-based planning dashboard for coordinating office renovation work, tracking scope, monitoring risks, and reviewing execution readiness.
+            </p>
+            <div class="hero-actions">
+                <button onclick="scrollToSection('overview')">View Overview</button>
+                <button onclick="scrollToSection('phases')">View Phases</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="page-shell">
+        <section class="panel" id="overview">
+            <h2>Project Overview</h2>
+            <div class="summary-grid" id="summaryGrid"></div>
+        </section>
+
+        <section class="panel" id="goals">
+            <h2>Project Goals</h2>
+            <div class="card-grid" id="goalsGrid"></div>
+        </section>
+
+        <section class="panel" id="scope">
+            <h2>Scope Breakdown</h2>
+            <div class="scope-grid">
+                <article class="scope-card">
+                    <h3>In Scope</h3>
+                    <ul id="inScopeList"></ul>
+                </article>
+                <article class="scope-card">
+                    <h3>Out Of Scope</h3>
+                    <ul id="outScopeList"></ul>
+                </article>
+            </div>
+        </section>
+
+        <section class="panel" id="phases">
+            <h2>Execution Phases</h2>
+            <div class="card-grid" id="phasesGrid"></div>
+        </section>
+
+        <section class="panel" id="metrics">
+            <h2>Success Metrics</h2>
+            <div class="card-grid" id="metricsGrid"></div>
+        </section>
+
+        <section class="panel" id="risks">
+            <h2>Risk Management</h2>
+            <div class="card-grid" id="riskGrid"></div>
+        </section>
+
+        <section class="panel" id="readiness">
+            <h2>Execution Readiness Checklist</h2>
+            <div class="checklist-grid">
+                <article class="check-card">
+                    <h3>Planning And Design</h3>
+                    <ul>
+                        <li>Stakeholder Requirements Gathered</li>
+                        <li>Layout Options Reviewed</li>
+                        <li>Budget Framework Approved</li>
+                        <li>Timeline Confirmed</li>
+                    </ul>
+                </article>
+                <article class="check-card">
+                    <h3>Procurement And Vendors</h3>
+                    <ul>
+                        <li>Contractors Shortlisted</li>
+                        <li>Supplier Quotes Compared</li>
+                        <li>Material Lead Times Confirmed</li>
+                        <li>Purchase Plan Ready</li>
+                    </ul>
+                </article>
+                <article class="check-card">
+                    <h3>Compliance And Delivery</h3>
+                    <ul>
+                        <li>Permit Requirements Reviewed</li>
+                        <li>Safety Compliance Checkpoints Set</li>
+                        <li>Site Visit Schedule Planned</li>
+                        <li>Final Walkthrough Criteria Defined</li>
+                    </ul>
+                </article>
+            </div>
+        </section>
+
+        <section class="panel" id="benefits">
+            <h2>Business Benefits</h2>
+            <div class="card-grid" id="benefitsGrid"></div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>Workspace Renovation Planning Dashboard • Portfolio Project</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
