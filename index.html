@@ -3,106 +3,252 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Workspace Renovation Planning Dashboard</title>
+    <title>SpaceOps Cloud Workspace Readiness Console</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header class="hero">
-        <div class="hero-inner">
-            <p class="eyebrow">Facilities Operations Dashboard</p>
-            <h1>Workspace Renovation Planning Dashboard</h1>
-            <p class="hero-text">
-                Browser-based planning dashboard for coordinating office renovation work, tracking scope, monitoring risks, and reviewing execution readiness.
-            </p>
-            <div class="hero-actions">
-                <button onclick="scrollToSection('overview')">View Overview</button>
-                <button onclick="scrollToSection('phases')">View Phases</button>
+    <main class="app-shell">
+        <header class="topbar">
+            <div class="brand">
+                <div class="brand-mark">SO</div>
+                <div>
+                    <span>SpaceOps</span>
+                    <strong>Cloud Workspace Readiness Console</strong>
+                </div>
             </div>
-        </div>
-    </header>
 
-    <main class="page-shell">
-        <section class="panel" id="overview">
-            <h2>Project Overview</h2>
-            <div class="summary-grid" id="summaryGrid"></div>
+            <nav class="top-nav" aria-label="SpaceOps sections">
+                <button class="nav-button active" data-view="command">Command</button>
+                <button class="nav-button" data-view="sites">Sites</button>
+                <button class="nav-button" data-view="cloud">Cloud Sync</button>
+                <button class="nav-button" data-view="vendors">Vendors</button>
+                <button class="nav-button" data-view="brief">Brief</button>
+            </nav>
+
+            <button class="ghost-button orange-button" id="syncButton" type="button">Run Cloud Sync</button>
+        </header>
+
+        <section class="hero-card team-horizon-hero">
+            <div class="hero-copy">
+                <p class="eyebrow">Cloud Workspace Operations</p>
+                <h1>Great spaces start with great visibility.</h1>
+                <p>
+                    Track every detail. Remove blockers. Launch workspaces your teams love with a cloud-ready operations console built for facilities, IT, vendors, and leadership.
+                </p>
+
+                <div class="hero-actions">
+                    <button class="primary-button" id="approveLaunchButton" type="button">Approve Launch Plan</button>
+                    <button class="secondary-button" id="exportReportButton" type="button">Export Readiness Brief</button>
+                </div>
+            </div>
+
+            <aside class="hero-visual" aria-label="Workspace readiness visualization">
+                <div class="office-scene">
+                    <div class="window-lines"></div>
+                    <div class="plant plant-left"></div>
+                    <div class="plant plant-right"></div>
+                    <div class="table"></div>
+                    <div class="chair chair-left"></div>
+                    <div class="chair chair-right"></div>
+
+                    <div class="floating-readiness-card">
+                        <div class="readiness-orb">
+                            <span id="readinessScore">82%</span>
+                            <small>Portfolio Readiness</small>
+                        </div>
+
+                        <div class="site-selector-card">
+                            <p class="panel-label">Active Workspace</p>
+                            <select id="siteSelect" aria-label="Select active workspace site"></select>
+                            <p class="muted" id="siteSummary">Loading site data...</p>
+                        </div>
+                    </div>
+                </div>
+            </aside>
         </section>
 
-        <section class="panel" id="goals">
-            <h2>Project Goals</h2>
-            <div class="card-grid" id="goalsGrid"></div>
+        <section class="metric-row" aria-label="Workspace operations metrics">
+            <article class="metric-card">
+                <div class="metric-illustration people"></div>
+                <span>Workspaces</span>
+                <strong id="siteCount">4</strong>
+                <p>Tracked spaces</p>
+            </article>
+
+            <article class="metric-card">
+                <div class="metric-illustration assets"></div>
+                <span>Assets Ready</span>
+                <strong id="assetReadiness">91%</strong>
+                <p>Furniture, network, access</p>
+            </article>
+
+            <article class="metric-card">
+                <div class="metric-illustration budget"></div>
+                <span>Projected Spend</span>
+                <strong id="budgetStatus">$284k</strong>
+                <p>Budget visibility</p>
+            </article>
+
+            <article class="metric-card">
+                <div class="metric-illustration blockers"></div>
+                <span>Open Blockers</span>
+                <strong id="blockerCount">5</strong>
+                <p>Need owner action</p>
+            </article>
         </section>
 
-        <section class="panel" id="scope">
-            <h2>Scope Breakdown</h2>
-            <div class="scope-grid">
-                <article class="scope-card">
-                    <h3>In Scope</h3>
-                    <ul id="inScopeList"></ul>
+        <section class="view-panel active" id="view-command">
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">Command View</p>
+                    <h2>Workspace launch picture</h2>
+                </div>
+                <button class="text-button" data-action="resolve-blocker">Resolve Top Blocker</button>
+            </div>
+
+            <div class="command-grid">
+                <article class="ops-card">
+                    <h3>Renovation Phases</h3>
+                    <div class="phase-list" id="phaseList"></div>
                 </article>
-                <article class="scope-card">
-                    <h3>Out Of Scope</h3>
-                    <ul id="outScopeList"></ul>
+
+                <article class="ops-card">
+                    <h3>Priority Blockers</h3>
+                    <div class="blocker-list" id="blockerList"></div>
+                </article>
+
+                <article class="ops-card cta-card">
+                    <p class="eyebrow">Next Best Action</p>
+                    <h3 id="nextActionTitle">Confirm network closet handoff.</h3>
+                    <p id="nextActionCopy">
+                        Cloud dashboards are only useful when site updates are trustworthy. Confirm the next owner, deadline, and sync status.
+                    </p>
+                    <button class="primary-button slim" data-action="resolve-blocker">Mark Action Complete</button>
                 </article>
             </div>
         </section>
 
-        <section class="panel" id="phases">
-            <h2>Execution Phases</h2>
-            <div class="card-grid" id="phasesGrid"></div>
+        <section class="view-panel" id="view-sites">
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">Multi-Site View</p>
+                    <h2>Workspace readiness by location</h2>
+                </div>
+                <button class="text-button" data-action="refresh-sites">Refresh Site Signals</button>
+            </div>
+
+            <div class="site-grid" id="siteGrid"></div>
+
+            <section class="bottom-cta">
+                <div>
+                    <p class="eyebrow">Site Operations Action</p>
+                    <h2>Compare every workspace before leadership asks.</h2>
+                    <p>Cloud operations teams need one view of site readiness, blockers, costs, and launch risk across locations.</p>
+                </div>
+                <button class="primary-button" data-action="refresh-sites">Refresh Readiness Signals</button>
+            </section>
         </section>
 
-        <section class="panel" id="metrics">
-            <h2>Success Metrics</h2>
-            <div class="card-grid" id="metricsGrid"></div>
+        <section class="view-panel" id="view-cloud">
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">Cloud Sync Model</p>
+                    <h2>How workspace data becomes operational insight</h2>
+                </div>
+                <button class="text-button" id="simulateSyncButton" type="button">Simulate Sync</button>
+            </div>
+
+            <div class="cloud-layout">
+                <article class="pipeline-card ops-card">
+                    <h3>Cloud Data Pipeline</h3>
+                    <div class="pipeline-flow" id="pipelineFlow"></div>
+                </article>
+
+                <article class="ops-card">
+                    <h3>Operational Health</h3>
+                    <div class="health-list" id="healthList"></div>
+                </article>
+            </div>
+
+            <section class="bottom-cta">
+                <div>
+                    <p class="eyebrow">Cloud Portfolio Action</p>
+                    <h2>This is where the project connects to cloud support work.</h2>
+                    <p>The UI models how workspace updates could move from forms, vendor portals, IoT sensors, and ticket queues into dashboards, alerts, and executive reports.</p>
+                </div>
+                <button class="primary-button" id="exportCloudBriefButton" type="button">Export Cloud Workflow Brief</button>
+            </section>
         </section>
 
-        <section class="panel" id="risks">
-            <h2>Risk Management</h2>
-            <div class="card-grid" id="riskGrid"></div>
+        <section class="view-panel" id="view-vendors">
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">Vendor Coordination</p>
+                    <h2>Owners, approvals, and handoffs</h2>
+                </div>
+                <button class="text-button" data-action="rebalance-vendors">Rebalance Vendor Load</button>
+            </div>
+
+            <div class="vendor-grid" id="vendorGrid"></div>
+
+            <section class="bottom-cta">
+                <div>
+                    <p class="eyebrow">Vendor Action</p>
+                    <h2>Every blocker needs one owner and one next step.</h2>
+                    <p>SpaceOps keeps facilities, IT, procurement, and leadership aligned before a workspace launch slips.</p>
+                </div>
+                <button class="primary-button" data-action="rebalance-vendors">Review Vendor Owners</button>
+            </section>
         </section>
 
-        <section class="panel" id="readiness">
-            <h2>Execution Readiness Checklist</h2>
-            <div class="checklist-grid">
-                <article class="check-card">
-                    <h3>Planning And Design</h3>
-                    <ul>
-                        <li>Stakeholder Requirements Gathered</li>
-                        <li>Layout Options Reviewed</li>
-                        <li>Budget Framework Approved</li>
-                        <li>Timeline Confirmed</li>
+        <section class="view-panel" id="view-brief">
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">Executive Brief</p>
+                    <h2>Launch readiness report</h2>
+                </div>
+                <button class="text-button" id="copyBriefButton" type="button">Copy Summary</button>
+            </div>
+
+            <div class="brief-grid">
+                <article class="ops-card">
+                    <h3>Portfolio Summary</h3>
+                    <dl class="brief-list">
+                        <dt>Program</dt><dd>Workspace Renovation Readiness</dd>
+                        <dt>Sites</dt><dd id="briefSites">4 active locations</dd>
+                        <dt>Readiness</dt><dd id="briefReadiness">82%</dd>
+                        <dt>Assets</dt><dd id="briefAssets">91% ready</dd>
+                        <dt>Blockers</dt><dd id="briefBlockers">5 open</dd>
+                    </dl>
+                </article>
+
+                <article class="ops-card">
+                    <h3>Leadership Notes</h3>
+                    <ul class="check-list">
+                        <li>Site readiness is updated through the simulated cloud sync layer.</li>
+                        <li>Vendor ownership is visible before handoff delays become incidents.</li>
+                        <li>Asset readiness links facilities work to IT and access control dependencies.</li>
+                        <li>Blockers are tracked with owner, severity, and next action.</li>
+                        <li>Future version can connect to a cloud database, ticket queue, and alerting service.</li>
                     </ul>
                 </article>
-                <article class="check-card">
-                    <h3>Procurement And Vendors</h3>
-                    <ul>
-                        <li>Contractors Shortlisted</li>
-                        <li>Supplier Quotes Compared</li>
-                        <li>Material Lead Times Confirmed</li>
-                        <li>Purchase Plan Ready</li>
-                    </ul>
-                </article>
-                <article class="check-card">
-                    <h3>Compliance And Delivery</h3>
-                    <ul>
-                        <li>Permit Requirements Reviewed</li>
-                        <li>Safety Compliance Checkpoints Set</li>
-                        <li>Site Visit Schedule Planned</li>
-                        <li>Final Walkthrough Criteria Defined</li>
-                    </ul>
-                </article>
             </div>
+
+            <section class="final-cta">
+                <div>
+                    <p class="eyebrow">Portfolio Launch Decision</p>
+                    <h2>SpaceOps shows how business operations can become cloud-managed workflows.</h2>
+                    <p>This project demonstrates dashboard thinking, operational visibility, readiness scoring, cloud workflow modeling, and executive reporting.</p>
+                </div>
+                <div class="final-actions">
+                    <button class="primary-button" id="finalSyncButton" type="button">Run Final Sync</button>
+                    <button class="secondary-button" id="finalExportButton" type="button">Export Brief</button>
+                </div>
+            </section>
         </section>
 
-        <section class="panel" id="benefits">
-            <h2>Business Benefits</h2>
-            <div class="card-grid" id="benefitsGrid"></div>
-        </section>
+        <aside class="toast" id="toast" role="status" aria-live="polite"></aside>
     </main>
-
-    <footer class="footer">
-        <p>Workspace Renovation Planning Dashboard • Portfolio Project</p>
-    </footer>
 
     <script src="script.js"></script>
 </body>

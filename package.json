@@ -1,0 +1,25 @@
+﻿{
+  "name": "spaceops-cloud-workspace-readiness-console",
+  "version": "1.0.0",
+  "description": "Cloud-ready workspace readiness and renovation operations console with API, sync simulation, scoring, reporting, and observability endpoints.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "check": "node --check server.js && node --check script.js",
+    "test": "npm run check"
+  },
+  "keywords": [
+    "cloud-operations",
+    "workspace-readiness",
+    "operations-dashboard",
+    "express-api",
+    "portfolio-project"
+  ],
+  "author": "JakesShell",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.19.2"
+  },
+  "devDependencies": {}
+}

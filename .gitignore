@@ -1,1 +1,6 @@
-*.bak
+﻿node_modules/
+data/*.json
+data/*.tmp
+.env
+*.log
+.DS_Store
