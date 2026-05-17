@@ -1,0 +1,10 @@
+﻿services:
+  spaceops:
+    build: .
+    container_name: spaceops-console
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./data:/app/data
+    environment:
+      - PORT=3000
